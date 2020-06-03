@@ -1,28 +1,19 @@
 Commands for Visual Novel.
-Every click event is a separate line in the file. The events below show how to call actions to make the chapter work.
-Each line may have multiple actions. Actions on the same line should be delimited by a space. Because of this, no value,
-including filenames, should contain spaces.
 
-#DIALOGUE COMMANDS
+#DIALOGUE COMMANDS (DONE)
 #Make a character speak
-  characterName "dialogue"                                                      ex: Raelin "Hi, how are you?"
-  + symbol makes dialogue additive to continue from last segment.               ex: Raelin +"That's good to hear."
-  No name before dialogue means use last speaker.                               ex: +"That's good to hear."
+  characterName "dialogue"					ex:Raelin "Hi, how are you?"
+  No name before dialogue means use last speaker.		ex:"That's good to hear."
 
-  #USING DIALOGUE COMMAND TAGS
+#USING DIALOGUE COMMAND TAGS (DONE)
   commands inside of dialogue can be used to trigger and segment the dialogue into different parts. So instead of having multiple lines for one character,
   everything can be put on one line.
-  {c} wait for input and clear
-  {a} wait for input and append
-  {w n} wait for n seconds and clear
-  {wa n} wait for n seconds and append                                          ex: INSTEAD OF USING
-                                                                                Raelin "Hi!"
-                                                                                "How are you?"
-                                                                                +" Good!"
+  {c} wait for input and clear					USE THIS
+  {a} wait for input and append					ex:Raelin "Hi!{w 1}How are you?{a} Good!"
+  {w n} wait for n seconds and clear//{w} loop
+  {wa n} wait for n seconds and append                                         
 
-                                                                                USE THIS
-
-                                                                                Raelin "Hi!{w}How are you?{a} Good!"
+                                                                                
 
   #USING CHOICES AS EVENTS
   Every choice should be on its own line. A choice is not a regular event so it is not paired with dialogue.

@@ -1,1 +1,10 @@
-*Raelin "...{a}Avira...{a} Stay here if you want.{a} But I'm going back. Even if its for nothing more than to warn everyone I can,... I'm going back.{c}Are you coming or not?"
+*Avira "We have to tickle the monkey's face or the world will explode!"
+
+
+choice "How are you doing?"
+{
+ "Fine"
+    Raelin "That is good to hear."
+ "Terrible"
+    Raelin "Oh? Why is that?"
+}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineArchitect : MonoBehaviour {
+public class LineArchitect {
 	public static LINE Interpret( string rawLine ) {
 		return new LINE(rawLine);
 	}

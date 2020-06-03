@@ -60,11 +60,11 @@ public class NovelController : MonoBehaviour {
 			if (next) {//click next
 				string line = data[chapterProgress];
 
-				//TagManager.Inject(ref line);//inject data into the line where it may be needed.
+				TagEvents.Inject(ref line);//inject data into the line where it may be needed.
 
 				if (line.StartsWith("choice")) {//choice
-					//yield return HandlingChoiceLine(line);
-					//chapterProgress++;
+					yield return HandlingChoiceLine(line);
+					chapterProgress++;
 				}
 				
 				else if (line.StartsWith("input")) {//user input
@@ -143,6 +143,48 @@ public class NovelController : MonoBehaviour {
 		if (isHandlingLine)
 			StopCoroutine(handlingLine);
 		handlingLine = null;
+	}
+	#endregion
+	#region Handling choice
+	IEnumerator HandlingChoiceLine( string line ) {
+		string title = line.Split('"')[1];
+		List<string> choices = new List<string>();
+		List<string> actions = new List<string>();
+
+		bool gatheringChoices = true;
+		while (gatheringChoices) {
+			chapterProgress++;
+			line = data[chapterProgress];
+
+			if (line == "{")
+				continue;
+
+			line = line.Replace("    ", "");//remove the tabs that have become quad spaces.
+
+			if (line != "}") {
+				choices.Add(line.Split('"')[1]);
+				actions.Add(data[chapterProgress + 1].Replace("    ", ""));
+				chapterProgress++;
+			} else {
+				gatheringChoices = false;
+			}
+		}
+
+		//display choices
+		if (choices.Count > 0) {
+			ChoiceScreen.Show(title, choices.ToArray()); yield return new WaitForEndOfFrame();
+			while (ChoiceScreen.isWaitingForChoiceToBeMade)
+				yield return new WaitForEndOfFrame();
+
+			//choice is made. execute the paired action.
+			string actionLine = actions[ChoiceScreen.lastChoiceMade.index];
+			HandleLine(actionLine);
+
+			while (isHandlingLine)
+				yield return new WaitForEndOfFrame();
+		} else {
+			Debug.LogError("Invalid choice operation. No choices were found.");
+		}
 	}
 	#endregion
 	#region Handle action

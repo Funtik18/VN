@@ -21,6 +21,38 @@ public class HelpFunctions : MonoBehaviour {
 		return list;
 	}
 
+	public static List<T> GetCopy<T>( List<T> _original ) {
+		List<T> copy = new List<T>();
+		for (int i = 0; i < _original.Count; i++) {
+			copy.Add(_original[i]);
+		}
+		return copy;
+	}
+
+
+	public static void DestroyChilds( Transform _transform ) {
+		GameObject[] trashArray = new GameObject[_transform.childCount];
+
+		for (int i = 0; i < trashArray.Length; i++) {
+			trashArray[i] = _transform.GetChild(i).gameObject;
+		}
+
+		for (int i = 0; i < trashArray.Length; i++) {
+			DestroyImmediate(trashArray[i]);
+		}
+	}
+	public static void DestroyObject( GameObject _obj ) {
+		DestroyImmediate(_obj);
+	}
+
+
+	public static Transform[] TakeAllChilds( Transform _transform ) {
+		Transform[] childs = new Transform[_transform.childCount];
+		for (int i = 0; i < _transform.childCount; i++) {
+			childs[i] = _transform.GetChild(i);
+		}
+		return childs;
+	}
 
 	public static bool TransitionImages( ref Image activeImage, ref List<Image> allImages, float speed, bool smooth, bool fasterInTime = false ) {
 		bool anyValueChanged = false;

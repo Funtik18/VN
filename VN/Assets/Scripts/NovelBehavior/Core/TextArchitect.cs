@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 ///	<b></b> <size=4></size>size>....
 /// </summary>
-public class TextArchitect : MonoBehaviour {
+public class TextArchitect {
 
 	TextMeshProUGUI tmpro;
 
