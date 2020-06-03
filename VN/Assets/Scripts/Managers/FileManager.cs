@@ -5,6 +5,13 @@ using UnityEngine;
 public class FileManager : MonoBehaviour{
     public static string fileExtension = ".txt";
 
+    public static string pathStory = "Story";
+
+    public static TextAsset GetFileTXT(string _path) {
+        TextAsset txt = Resources.Load<TextAsset>($"{pathStory}/{_path}");
+        return txt;
+    }
+
 
     /// <summary>
     /// Read a text asset and return a list of lines

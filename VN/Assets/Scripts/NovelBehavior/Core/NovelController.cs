@@ -7,27 +7,39 @@ public class NovelController : MonoBehaviour {
 
 	string activeChapterFile = "";
 
+	List<string> data;
+
 	void Awake() {
 		_instance = this;
 
 		LoadChapterFile("story_1");
 	}
+	/// <summary>
+	/// Trigger that advances the progress through a chapter file.
+	/// </summary>
+	bool next = false;
+	/// <summary>
+	/// Procede to the next line of a chapter or finish the line right now.
+	/// </summary>
+	public void Next() {
+		next = true;
+	}
 
-	public void LoadChapterFile( string fileName ) {
-		activeChapterFile = fileName;
-		List<string> data = FileManager.ReadTextAsset(Resources.Load<TextAsset>($"Story/{activeChapterFile}"));
+	public void LoadChapterFile( string _fileName ) {
+		activeChapterFile = _fileName;
+		data = FileManager.ReadTextAsset(FileManager.GetFileTXT(_fileName));
 
 		print(data[0]);
 
 
-		/*data = FileManager.ReadTextAsset(Resources.Load<TextAsset>($"Story/{fileName}"));
+		/*
 		cachedLastSpeaker = "";
 
 		if (handlingChapterFile != null)
 			StopCoroutine(handlingChapterFile);
-		handlingChapterFile = StartCoroutine(HandlingChapterFile());
+		handlingChapterFile = StartCoroutine(HandlingChapterFile());*/
 
 		//auto start the chapter.
-		Next();*/
+		Next();
 	}
 }
