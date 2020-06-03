@@ -7,6 +7,7 @@ public class FileManager : MonoBehaviour{
 
     public static string pathStory = "Story";
     public static string pathCharacters = "Prefabs/Characters";
+    public static string pathSpritesCharacters = "Images/Characters";
 
     public static TextAsset GetFileTXT(string _path) {
         TextAsset txt = Resources.Load<TextAsset>($"{pathStory}/{_path}");
@@ -15,6 +16,11 @@ public class FileManager : MonoBehaviour{
     public static GameObject GetCharacter( string _name ) {
         GameObject go = Resources.Load($"{pathCharacters}/Character[{_name}]") as GameObject;
         return go;
+    }
+
+    public static Sprite[] GetSprites( string _path ) {
+        Sprite[] sprites = Resources.LoadAll<Sprite>($"{pathSpritesCharacters}/{_path}");
+        return sprites;
     }
 
 

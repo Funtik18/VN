@@ -137,7 +137,7 @@ public class LineArchitect : MonoBehaviour {
 			IEnumerator Running() {
 				allCurrentlyExecutedEvents.Clear();
 				//take care of any tags that must be injected into the dialogue before we worry about events.
-				//TagManager.Inject(ref dialogue);
+				TagEvents.Inject(ref dialogue);
 
 				//split the dialogue by the event characters.
 				string[] parts = dialogue.Split('[', ']');
@@ -146,7 +146,7 @@ public class LineArchitect : MonoBehaviour {
 					//events will always be odd indexed. Execute an event.
 					bool isOdd = i % 2 != 0;
 					if (isOdd) {
-						//DialogueEvents.HandleEvent(parts[i], this);
+						LineEvents.HandleEvent(parts[i], this);
 						allCurrentlyExecutedEvents.Add(parts[i]);
 						i++;
 					}
@@ -198,7 +198,7 @@ public class LineArchitect : MonoBehaviour {
 							if (allCurrentlyExecutedEvents.Contains(e)) {
 								allCurrentlyExecutedEvents.Remove(e);
 							} else {
-								//DialogueEvents.HandleEvent(e, this);
+								LineEvents.HandleEvent(e, this);
 							}
 							i++;
 						}

@@ -1647,6 +1647,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1064831279099344140, guid: 456019f66ab4e8c4da9baed679d80632,
         type: 3}
+      propertyPath: speechBox
+      value: 
+      objectReference: {fileID: 1739835256}
+    - target: {fileID: 1064831279099344140, guid: 456019f66ab4e8c4da9baed679d80632,
+        type: 3}
       propertyPath: elements.speakerNamePanel
       value: 
       objectReference: {fileID: 1923419624}
@@ -1665,11 +1670,6 @@ PrefabInstance:
       propertyPath: elements.speechText
       value: 
       objectReference: {fileID: 92251054}
-    - target: {fileID: 1064831279099344140, guid: 456019f66ab4e8c4da9baed679d80632,
-        type: 3}
-      propertyPath: speechBox
-      value: 
-      objectReference: {fileID: 1739835256}
     - target: {fileID: 3300182977229674577, guid: 456019f66ab4e8c4da9baed679d80632,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1730,5 +1730,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MANAGER_Novel
       objectReference: {fileID: 0}
+    - target: {fileID: 7445623451431262444, guid: 456019f66ab4e8c4da9baed679d80632,
+        type: 3}
+      propertyPath: characterPanel
+      value: 
+      objectReference: {fileID: 168539327}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 456019f66ab4e8c4da9baed679d80632, type: 3}

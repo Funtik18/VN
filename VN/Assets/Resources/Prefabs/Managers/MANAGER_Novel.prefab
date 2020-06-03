@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3300182977229674577}
   - component: {fileID: 3300182977229674578}
   - component: {fileID: 1064831279099344140}
+  - component: {fileID: 7445623451431262444}
   m_Layer: 0
   m_Name: MANAGER_Novel
   m_TagString: Untagged
@@ -44,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1697566a3231f20439f8ee545239b851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chapterProgress: 0
+  lineProgress: 0
+  cachedLastSpeaker: 
 --- !u!114 &1064831279099344140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,10 +60,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bae0406042773d4da8b3ba3e2d9d2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetSpeech: 
+  isWaitingForUserInput: 0
+  speechBox: {fileID: 0}
   elements:
     speakerNamePanel: {fileID: 0}
     speakerNameText: {fileID: 0}
     speechPanel: {fileID: 0}
     speechText: {fileID: 0}
   SpeechPanelRequirements: []
-  speechBox: {fileID: 0}
+--- !u!114 &7445623451431262444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300182977229674579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084571200da134b4492d9f1feccb0602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPanel: {fileID: 0}
+  characters: []
