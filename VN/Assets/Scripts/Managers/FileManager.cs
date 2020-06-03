@@ -6,10 +6,15 @@ public class FileManager : MonoBehaviour{
     public static string fileExtension = ".txt";
 
     public static string pathStory = "Story";
+    public static string pathCharacters = "Prefabs/Characters";
 
     public static TextAsset GetFileTXT(string _path) {
         TextAsset txt = Resources.Load<TextAsset>($"{pathStory}/{_path}");
         return txt;
+    }
+    public static GameObject GetCharacter( string _name ) {
+        GameObject go = Resources.Load($"{pathCharacters}/Character[{_name}]") as GameObject;
+        return go;
     }
 
 
