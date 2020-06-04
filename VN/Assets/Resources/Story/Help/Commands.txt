@@ -15,19 +15,27 @@ Commands for Visual Novel.
 
                                                                                 
 
-  #USING CHOICES AS EVENTS
+  #USING CHOICES AS EVENTS (DONE)
   Every choice should be on its own line. A choice is not a regular event so it is not paired with dialogue.
-  a choice begins with the word 'choice' to signify it is a choice and not a normal line.
-  after choice have the choice title in quotes.
-  then inside of squiggly brackets we have our choices in quotes followed by a single command to be executed if that choice is made.
-                                                                                ex: choice "How are you doing?"
-                                                                                    {
-                                                                                      "Fine"
-                                                                                        Raelin "That is good to hear."
-                                                                                      "Terrible"
-                                                                                        Raelin "Oh? Why is that?"
-                                                                                    }
-
+  a choice begins with the word 'choice' or 'ChoIcE134', need word `choice`.
+                                                                  ex: choice "How are you doing?"
+                                                                      {
+                                                                        "Fine"
+                                                                          Raelin "That is good to hear."
+                                                                         "Terrible"
+                                                                           Raelin "Oh? Why is that?"
+                                                                       }
+  #Make Choices (DONE)
+  Begin a line with the keyword 'choice' to initiate a player choice.               ex:
+	  choice "choice title"                                                         choice "Do you like to write visual novels?"
+	  {                                                                             {
+		"Choice A"                                                                    "Yes, I love to."
+		  Line to execute when choice is made                                           Load(story_chapterA)
+		"Choice B"                                                                    "No, I don't do that."
+		  Line to execute if this choice is made INSTEAD                                Load(story_chapterB)
+		"etc"                                                                         "I'm not answering that."
+		  etc.                                                                          Avira "Oh. Okay then."
+	  }                                                                             }
   #USING EVENTS INSIDE OF dialogue
   events are contained inside of brackets []. They control things that happen while dialogue is being displayed.
   Actions can be called withing brackets as they would normally be called at the end of a line. Separate actions by a space character.
@@ -37,6 +45,15 @@ Commands for Visual Novel.
   [/txtSpd] - return architet to normal speed.                                  ex: "Move [txtSpd 30,1]slow [/txtSpd]but then return to normal speed."
 
 #REGULAR ACTION COMMANDS##################################################################################################################################
+#Make Character fade in and out of scene.(DONE)
+#use ; for multiple characters...
+  enter(characterName)                                                          ex: enter(Raelin)
+  exit(characterName)                                                           ex: exit(Raelin)
+                                                                                or: _____(Raelin;Avira;Enik)
+  *optional parameters
+     1. speed of fade.                                                          ex: enter(Raelin;Avira,15)
+
+
 #Change character expressions
   setFace(characterName,expressionName)                                         ex: setFace(Raelin,happy01)
   setBody(characterName,expression)                                             ex: setBody(Raelin,casualF)
@@ -60,14 +77,7 @@ Commands for Visual Novel.
   faceRight(characterName)                                                      ex: faceRight(Raelin)
                                                                                 or: _____(Raelin;Avira;Enik)
 
-#Make Character fade in and out of scene.
-#use ; for multiple characters...
-  enter(characterName)                                                          ex: enter(Raelin)
-  exit(characterName)                                                           ex: exit(Raelin)
-                                                                                or: _____(Raelin;Avira;Enik)
 
-  *optional parameters
-     1. speed of fade.                                                          ex: enter(Raelin;Avira,15)
 
 #Change Layer Image
   setBackground(imageName)                                                      ex: setBackground(forest)
@@ -108,17 +118,7 @@ use special transitions instead of normal fading to fade out entire scene or jus
   saveTempInput(valueIndex) saves value from input field to cache.              ex: saveTempInput(3)
 
 #SPECIAL COMMANDS######################################################################################################################################
-#Make Choices
-Begin a line with the keyword 'choice' to initiate a player choice.               ex:
-  choice "choice title"                                                         choice "Do you like to write visual novels?"
-  {                                                                             {
-    "Choice A"                                                                    "Yes, I love to."
-      Line to execute when choice is made                                           Load(story_chapterA)
-    "Choice B"                                                                    "No, I don't do that."
-      Line to execute if this choice is made INSTEAD                                Load(story_chapterB)
-    "etc"                                                                         "I'm not answering that."
-      etc.                                                                          Avira "Oh. Okay then."
-  }                                                                             }
+                                                                          }
 
 #Take user input
 Begin a line with the keyword 'input' to initiate user input                    ex:

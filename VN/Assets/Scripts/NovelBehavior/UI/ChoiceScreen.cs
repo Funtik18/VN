@@ -10,7 +10,7 @@ public class ChoiceScreen : MonoBehaviour {
 
 	public TitleHeader header;
 
-
+	public Transform choicePanel;
 	public ChoiceButton choicePrefab;
 	static List<ChoiceButton> choices = new List<ChoiceButton>();
 
@@ -19,7 +19,7 @@ public class ChoiceScreen : MonoBehaviour {
 
 	public static bool isWaitingForChoiceToBeMade { get { return isShowingChoices && !lastChoiceMade.hasBeenMade; } }
 
-	public VerticalLayoutGroup layoutGroup;
+	public GridLayoutGroup layoutGroup;
 
 
 	void Awake() {
@@ -30,34 +30,32 @@ public class ChoiceScreen : MonoBehaviour {
 	public static void Show( string title, params string[] choices ) {
 		_instance.root.SetActive(true);
 
-		if (title != "")
-			_instance.header.Show(title);
-		else
-			_instance.header.Hide();
+		if (title == "") _instance.header.Hide();
+		else _instance.header.Show(title);
 
 		if (isShowingChoices)
-			_instance.StopCoroutine(showingChoices);
+			_instance.StopCoroutine(_instance.showingChoices);
 
-		ClearAllCurrentChoices();
+		_instance.ClearAllCurrentChoices();
 
-		showingChoices = _instance.StartCoroutine(ShowingChoices(choices));
+		_instance.showingChoices = _instance.StartCoroutine(_instance.ShowingChoices(choices));
 	}
-
 	public static void Hide() {
 		if (isShowingChoices)
-			_instance.StopCoroutine(showingChoices);
-		showingChoices = null;
+			_instance.StopCoroutine(_instance.showingChoices);
+		_instance.showingChoices = null;
 
 		_instance.header.Hide();
 
-		ClearAllCurrentChoices();
+		_instance.ClearAllCurrentChoices();
 
 		_instance.root.SetActive(false);
 	}
 
-	public static bool isShowingChoices { get { return showingChoices != null; } }
-	static Coroutine showingChoices = null;
-	public static IEnumerator ShowingChoices( string[] choices ) {
+
+	public static bool isShowingChoices { get { return _instance.showingChoices != null; } }
+	Coroutine showingChoices = null;
+	public IEnumerator ShowingChoices( string[] choices ) {
 		yield return new WaitForEndOfFrame();//allow the header to begin appearing if it will be present.
 		lastChoiceMade.Reset();
 
@@ -75,28 +73,13 @@ public class ChoiceScreen : MonoBehaviour {
 
 		Hide();
 	}
-	static void ClearAllCurrentChoices() {
+	void ClearAllCurrentChoices() {
 		foreach (ChoiceButton b in choices) {
 			HelpFunctions.DestroyObject(b.gameObject);
 		}
 		choices.Clear();
 	}
 
-
-	[System.Serializable]
-	public class CHOICE {
-		public bool hasBeenMade { get { return title != "" && index != -1; } }
-
-		public string title = "";
-		public int index = -1;
-
-		public void Reset() {
-			title = "";
-			index = -1;
-		}
-	}
-	
-	
 
 	public void MakeChoice( ChoiceButton button ) {
 		choice.index = button.choiceIndex;
@@ -117,35 +100,48 @@ public class ChoiceScreen : MonoBehaviour {
 			MakeChoice(choices[choiceIndex]);
 	}
 
-	static void CreateChoice( string choice ) {
-		GameObject ob = Instantiate(_instance.choicePrefab.gameObject, _instance.choicePrefab.transform.parent);
-		ob.SetActive(true);
-		ChoiceButton b = ob.GetComponent<ChoiceButton>();
+	void CreateChoice( string choice ) {
+		ChoiceButton ob = Instantiate<ChoiceButton>(choicePrefab, choicePanel);
+		ob.gameObject.SetActive(true);
+		ChoiceButton choicebutton = ob.GetComponent<ChoiceButton>();
 
-		b.text = choice;
-		b.choiceIndex = choices.Count;
 
-		choices.Add(b);
+		choicebutton.text = choice;
+		choicebutton.choiceIndex = choices.Count;
+
+		choicebutton.main.onClick.AddListener(() => { _instance.MakeChoice(choicebutton); });
+
+		choices.Add(choicebutton);
 	}
 
-	static void SetLayoutSpacing() {
-		int i = choices.Count;
-		if (i <= 3)
-			_instance.layoutGroup.spacing = 20;
-		else if (i >= 7)
-			_instance.layoutGroup.spacing = 1;
-		else {
-			switch (i) {
-				case 4:
-				_instance.layoutGroup.spacing = 15;
-				break;
-				case 5:
-				_instance.layoutGroup.spacing = 10;
-				break;
-				case 6:
-				_instance.layoutGroup.spacing = 5;
-				break;
-			}
+	void SetLayoutSpacing() {
+		int count = choices.Count;
+
+		float space = 20f;//spacing beetwen
+		float offset = 150f;//width-offset
+
+		float width = choicePanel.GetComponent<RectTransform>().rect.width;
+		float height = choicePanel.GetComponent<RectTransform>().rect.height;
+
+		if(( height / count )-(count*space) < 100) {
+			layoutGroup.cellSize = new Vector2(width - offset, ( height / count ) - (  space ));
+			layoutGroup.spacing = new Vector2(0, space);
+		} else {
+			layoutGroup.cellSize = new Vector2(width - offset, 100);
+			layoutGroup.spacing = new Vector2(0, space);
+		}
+	}
+
+	[System.Serializable]
+	public class CHOICE {
+		public bool hasBeenMade { get { return title != "" && index != -1; } }
+
+		public string title = "";
+		public int index = -1;
+
+		public void Reset() {
+			title = "";
+			index = -1;
 		}
 	}
 }

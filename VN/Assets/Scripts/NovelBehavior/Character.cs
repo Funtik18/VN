@@ -79,7 +79,7 @@ public class Character {
 
 		//get the details for the dialogue system related to this character. details are saved on file.
 		//CharacterDialogueDetails.CDD c = CharacterDialogueDetails.instance.GetDetailsForCharacter(characterName);
-		Debug.Log(characterName);
+		//Debug.Log(characterName);
 
 		dialogue.Say(speech, displayName, add/*, c*/);
 	}

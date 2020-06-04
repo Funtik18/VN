@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TagEvents : MonoBehaviour {
     public static void Inject( ref string s ) {
-        print(s);
+        //print(s);
         /*if (!s.Contains("["))
            return;
 

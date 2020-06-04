@@ -2,9 +2,12 @@
 
 
 choice "How are you doing?"
-{
- "Fine"
-    Raelin "That is good to hear."
- "Terrible"
-    Raelin "Oh? Why is that?"
-}
+{"Fine awda wdasd asqew"
+Raelin "That is good to hear."
+	"Terrible"
+	  Raelin "Oh? Why is that?"
+"Terrible"
+
+		Raelin "Oh?"
+		"Fine asdqw as dwq "
+	Raelin "That is good to hear."}

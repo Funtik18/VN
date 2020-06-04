@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,7 +45,6 @@ public class HelpFunctions : MonoBehaviour {
 	public static void DestroyObject( GameObject _obj ) {
 		DestroyImmediate(_obj);
 	}
-
 
 	public static Transform[] TakeAllChilds( Transform _transform ) {
 		Transform[] childs = new Transform[_transform.childCount];
@@ -114,5 +114,9 @@ public class HelpFunctions : MonoBehaviour {
 
 	public static Color SetAlpha( Color color, float alpha ) {
 		return new Color(color.r, color.g, color.b, alpha);
+	}
+
+	public static string DeleteAllSpaces(string str) {
+		return Regex.Replace(str, @"\s+", "");
 	}
 }
