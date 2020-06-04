@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour {
 
@@ -23,6 +24,8 @@ public class DialogueSystem : MonoBehaviour {
 
 	void Awake() {
 		_instance = this;
+
+		Close();
 	}
 
 
@@ -64,8 +67,10 @@ public class DialogueSystem : MonoBehaviour {
 
 		isWaitingForUserInput = false;
 
-		if (isClosed)
-			OpenAllRequirementsForDialogueSystemVisibility(true);
+		if (isClosed) {
+			VisibilityRequirements(true);
+			VisibilitySpeech(true);
+		}
 
 		while (textArchitect.isConstructing) {
 			if (Input.GetKey(KeyCode.Space))//////////////////
@@ -118,29 +123,45 @@ public class DialogueSystem : MonoBehaviour {
 	public void Close() {
 		StopSpeaking();
 
-		for (int i = 0; i < SpeechPanelRequirements.Length; i++) {
-			SpeechPanelRequirements[i].SetActive(false);
+		VisibilityRequirements(false);
+		VisibilitySpeech(false);
+	}
+
+	public void VisibilityButtons( bool trigger ) {
+		for (int i = 0; i < elements.speechButtons.Length; i++) {
+			elements.speechButtons[i].gameObject.SetActive(trigger);
+		}
+	}
+	public void VisibilityRequirements( bool trigger ) {
+		for (int i = 0; i < elements.requirementsObjects.Length; i++) {
+			elements.requirementsObjects[i].SetActive(trigger);
 		}
 	}
 
-	public void OpenAllRequirementsForDialogueSystemVisibility( bool trigger ) {
-		for (int i = 0; i < SpeechPanelRequirements.Length; i++) {
-			SpeechPanelRequirements[i].SetActive(trigger);
-		}
+	public void VisibilitySpeech( bool trigger ) {
+		speechBox.SetActive(trigger);
+		//speakerNamePanel.SetActive(trigger);
+		//speechPanel.SetActive(trigger);
 	}
+
 	public void Open( string speakerName = "", string speech = "" ) {
-		if (speakerName == "" && speech == "") {
-			OpenAllRequirementsForDialogueSystemVisibility(false);
+
+		VisibilityRequirements(true);
+		VisibilityButtons(true);
+		VisibilitySpeech(true);
+		/*if (speakerName == "" && speech == "") {
+			VisibilitySpeech(false);
+			VisibilityRequirements(false);
 			return;
 		}
-
-		OpenAllRequirementsForDialogueSystemVisibility(true);
+		VisibilityRequirements(true);
+		VisibilitySpeech(true);
 
 		speakerNameText.text = speakerName;
 
 		speakerNamePanel.SetActive(speakerName != "");
 
-		speechText.text = speech;
+		speechText.text = speech;*/
 	}
 
 
@@ -151,13 +172,14 @@ public class DialogueSystem : MonoBehaviour {
 
 		public GameObject speechPanel;
 		public TextMeshProUGUI speechText;
+
+		public Button[] speechButtons;
+
+		public GameObject[] requirementsObjects;
 	}
 	public GameObject speechBox;
 
 	public ELEMENTS elements;
-
-	public GameObject[] SpeechPanelRequirements;
-
 
 	public GameObject speakerNamePanel { get { return elements.speakerNamePanel; } }
 	public TextMeshProUGUI speakerNameText { get { return elements.speakerNameText; } }

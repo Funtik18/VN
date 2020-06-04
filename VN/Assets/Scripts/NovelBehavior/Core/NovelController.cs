@@ -21,12 +21,6 @@ public class NovelController : MonoBehaviour {
 
 	void Awake() {
 		_instance = this;
-		GameObject[] nexts = GameObject.FindGameObjectsWithTag("NEXT");
-		for(int i = 0; i < nexts.Length; i++) {
-			nexts[i].GetComponent<Button>().onClick.AddListener(() => { Command_Next(); });
-		}
-
-		LoadChapterFile("story_2");
 	}
 	/// <summary>
 	/// Trigger that advances the progress through a chapter file.
@@ -34,6 +28,8 @@ public class NovelController : MonoBehaviour {
 	bool next = false;
 
 	public void LoadChapterFile( string _fileName ) {
+		print("start");
+
 		activeChapterFile = _fileName;
 		data = FileManager.ReadTextAsset(FileManager.GetFileTXT(_fileName));
 
@@ -45,6 +41,12 @@ public class NovelController : MonoBehaviour {
 
 		//auto start the chapter.
 		Command_Next();
+	}
+	public void Prepare() {
+		GameObject[] nexts = GameObject.FindGameObjectsWithTag("NEXT");
+		for (int i = 0; i < nexts.Length; i++) {
+			nexts[i].GetComponent<Button>().onClick.AddListener(() => { Command_Next();});
+		}
 	}
 	#region Handling chapter file
 	public bool isHandlingChapterFile { get { return handlingChapterFile != null; } }
@@ -78,6 +80,8 @@ public class NovelController : MonoBehaviour {
 		}
 
 		handlingChapterFile = null;
+
+		print("end");
 	}
 	#region Handling line
 	void HandleLine( string rawLine ) {
