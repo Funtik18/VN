@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -114,6 +116,13 @@ public class HelpFunctions : MonoBehaviour {
 
 	public static Color SetAlpha( Color color, float alpha ) {
 		return new Color(color.r, color.g, color.b, alpha);
+	}
+
+	public static float ConvertToFloat(string number) {
+		return float.Parse(number, CultureInfo.InvariantCulture.NumberFormat);
+	}
+	public static bool ConvertToBool( string number ) {
+		return Convert.ToBoolean(number);
 	}
 
 	public static string DeleteAllSpaces(string str) {
