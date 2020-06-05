@@ -1,15 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class FileManager : MonoBehaviour{
     public static string fileExtension = ".txt";
 
+    public static string settingsPath = Application.persistentDataPath + "/settings.txt";//Application.dataPath
+
     public static string pathStory = "Story";
     public static string pathCharacters = "Prefabs/Characters";
     public static string pathSpritesCharacters = "Images/Characters";
 
-    public static TextAsset GetFileTXT(string _path) {
+    public static string LoadFileSettings() {
+        using (StreamReader sw = new StreamReader(settingsPath)) {
+            string preferences = sw.ReadToEnd();
+
+        }
+        return "";
+    }
+    public static void SaveFileSettings() {
+
+    }
+    public static void CreateFileSettings() {
+        print(Application.persistentDataPath);
+        if (File.Exists(settingsPath)) {
+            Debug.Log("YES");
+        } else {
+            using (StreamWriter sw = new StreamWriter(settingsPath, false)) {
+                string preferences =
+                    "resolution = 10*10";
+                sw.WriteLine(preferences);
+            }
+        }
+    }
+
+    public static TextAsset GetFileTXT(string _path) {////////////
         TextAsset txt = Resources.Load<TextAsset>($"{pathStory}/{_path}");
         return txt;
     }

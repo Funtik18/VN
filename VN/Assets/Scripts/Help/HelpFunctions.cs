@@ -7,6 +7,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HelpFunctions : MonoBehaviour {
+
+	public static void EnableCanvasGroup(CanvasGroup element, bool triger) {
+		element.alpha = ConvertToInteger<bool>(triger);
+		element.blocksRaycasts = triger;
+		element.interactable = triger;
+	}
+	public static void EnableCanvasGroup( CanvasGroup []elements, bool triger ) {
+		for(int i = 0; i < elements.Length; i++) {
+			EnableCanvasGroup(elements[i], triger);
+		}
+	}
+
+
+
+
+
+
+
 	/// <summary>
 	/// Converts an array of strings into a list of the same values.
 	/// </summary>
@@ -113,11 +131,24 @@ public class HelpFunctions : MonoBehaviour {
 		return anyValueChanged;
 	}
 
+	public static string[] SplitString( string _str, string _separator ) {
+		char[] separators = _separator.ToCharArray();
+		string[] parts = _str.Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
+		return parts;
+	}
+	public static string[] SplitString( string _str, char _separator ) {
+		string[] parts = _str.Split(_separator);
+		return parts;
+	}
+
 
 	public static Color SetAlpha( Color color, float alpha ) {
 		return new Color(color.r, color.g, color.b, alpha);
 	}
 
+	public static int ConvertToInteger<T>( T number ) {
+		return Convert.ToInt32(number);
+	}
 	public static float ConvertToFloat(string number) {
 		return float.Parse(number, CultureInfo.InvariantCulture.NumberFormat);
 	}

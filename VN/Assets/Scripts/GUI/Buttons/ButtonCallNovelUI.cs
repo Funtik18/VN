@@ -16,7 +16,7 @@ public class ButtonCallNovelUI : BasicButton {//Test
 
 	private void CallUI() {
 		DialogueSystem._instance.Open();
-		LayoutOrders._instance.MakeMainUI();
+		LayoutOrders._instance.MakeMainGUI();
 		NovelController._instance.Prepare();
 		NovelController._instance.LoadChapterFile(currentFile);
 	}
