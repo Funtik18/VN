@@ -8,7 +8,7 @@ public class ButtonEnablePlane : BasicButton {
 	
 	void Awake() {
 		main = GetComponent<Button>();
-		main.onClick.AddListener(() => { HelpFunctions.EnableCanvasGroup(mainPanel, !mainPanel.blocksRaycasts);print("+"); });
+		//main.onClick.AddListener(() => { HelpFunctions.EnableCanvasGroup(mainPanel, !mainPanel.blocksRaycasts);print("+"); });
 	}
 
 	

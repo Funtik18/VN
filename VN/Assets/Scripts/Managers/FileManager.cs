@@ -3,37 +3,42 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class FileManager : MonoBehaviour{
+public class FileManager : MonoBehaviour {//print(Application.persistentDataPath);
+
+    private readonly static string SETTINGS_FILE = "/GAME/settings.json";
+    
     public static string fileExtension = ".txt";
 
-    public static string settingsPath = Application.persistentDataPath + "/settings.txt";//Application.dataPath
+    public static string settingsPath { get { return Path.Combine(Application.persistentDataPath + SETTINGS_FILE); }  private set { } }
 
     public static string pathStory = "Story";
     public static string pathCharacters = "Prefabs/Characters";
     public static string pathSpritesCharacters = "Images/Characters";
 
-    public static string LoadFileSettings() {
-        using (StreamReader sw = new StreamReader(settingsPath)) {
-            string preferences = sw.ReadToEnd();
 
-        }
-        return "";
+    public static void SaveFile( string path, string data, bool append = false ) {
+        StreamWriter sw = new StreamWriter(path, append);
+        sw.WriteLine(data);
+        sw.Close();
     }
-    public static void SaveFileSettings() {
+    public static string LoadFile(string path) {
+        string data = "";
+        StreamReader sr = new StreamReader(path);
+        data = sr.ReadToEnd();
+        sr.Close();
 
+        return data;
     }
-    public static void CreateFileSettings() {
-        print(Application.persistentDataPath);
-        if (File.Exists(settingsPath)) {
-            Debug.Log("YES");
-        } else {
-            using (StreamWriter sw = new StreamWriter(settingsPath, false)) {
-                string preferences =
-                    "resolution = 10*10";
-                sw.WriteLine(preferences);
-            }
-        }
+    public static bool IsFileExist( string path ) {
+        if (File.Exists(path))
+            return true;
+        return false;
     }
+    public static void DeleteFile( string path ) {
+        File.Delete(path);
+	}
+    
+        
 
     public static TextAsset GetFileTXT(string _path) {////////////
         TextAsset txt = Resources.Load<TextAsset>($"{pathStory}/{_path}");
