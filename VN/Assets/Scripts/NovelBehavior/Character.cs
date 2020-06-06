@@ -90,6 +90,7 @@ public class Character {
 	/// </summary>
 	/// <param name="target">Target.</param>
 	public void SetPosition( Vector2 target ) {
+		StopMoving();
 		targetPosition = target;
 
 		Vector2 padding = anchorPadding;

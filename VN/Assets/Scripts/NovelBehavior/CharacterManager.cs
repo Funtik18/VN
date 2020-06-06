@@ -21,6 +21,8 @@ public class CharacterManager : MonoBehaviour {
 
 	void Awake() {
 		_instance = this;
+
+		characterPanel.gameObject.SetActive(true);
 	}
 
 	/// <summary>
@@ -66,7 +68,7 @@ public class CharacterManager : MonoBehaviour {
 
 		characterDictionary.Remove(character.characterName);
 
-		Destroy(character.root.gameObject, 0.01f);
+		Destroy(character.root.gameObject);
 	}
 	/// <summary>
 	/// Destroys a character in the scene by this name.

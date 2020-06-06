@@ -4,14 +4,13 @@ using System.Xml.Linq;
 using UnityEngine;
 
 public class Settings : MonoBehaviour {
-
     private static Settings _instance;
 
     public bool IsReady { get; private set; }
 
-
     public List<string> QualityNames {get; private set; }
     public List<Resolution> ResolutionSettings { get; private set; }
+
     public GameOptions gameOptions { get; private set; }
 
     public static Settings getInstance() {
@@ -28,19 +27,20 @@ public class Settings : MonoBehaviour {
     }
 
 	private void Awake() {
-        print(Application.persistentDataPath);
-
+        //Load strings
         QualityNames = new List<string>(QualitySettings.names);
         ResolutionSettings = new List<Resolution>(Screen.resolutions);
-
+        //Load options
         gameOptions = LoadOptions();
         ApplySettings(gameOptions);
 
         IsReady = true;
-
     }
 
-    public void ApplySettings( GameOptions options ) {
+    public void ApplySettings() {
+        ApplySettings(gameOptions);
+    }
+    private void ApplySettings( GameOptions options ) {
         QualitySettings.SetQualityLevel(options.quality);
         Screen.SetResolution(options.width, options.height, options.fullscreen);
     }
@@ -61,6 +61,8 @@ public class Settings : MonoBehaviour {
 
         string data = JsonUtility.ToJson(options, true);
         FileManager.SaveFile(fullPath, data);
+
+        gameOptions = options;//remeber options
     }
     public GameOptions LoadOptions() {
         string fullPath = FileManager.settingsPath;

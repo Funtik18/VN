@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - ButtonCallNovelUI
     - ButtonEnablePlane
+    - Carousel
     - CharacterManager
     - ChoiceButton
     - ChoiceScreen
@@ -10,7 +11,6 @@ ScriptsOnlyBuild:
     - LayoutOrders
     - NovelController
     - OptionSceneController
-    - Preferences
     - TitleHeader
     - UIFader
     Unity.Rider.Editor.dll:
@@ -72,65 +72,65 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11726}
     - Class: 114
-      Script: {instanceID: 11748}
+      Script: {instanceID: 11728}
     - Class: 114
-      Script: {instanceID: 11756}
+      Script: {instanceID: 11750}
     - Class: 114
-      Script: {instanceID: 11798}
+      Script: {instanceID: 11758}
     - Class: 114
-      Script: {instanceID: 11840}
+      Script: {instanceID: 11800}
     - Class: 114
-      Script: {instanceID: 11934}
+      Script: {instanceID: 11842}
     - Class: 114
-      Script: {instanceID: 11966}
+      Script: {instanceID: 11936}
     - Class: 114
-      Script: {instanceID: 12108}
+      Script: {instanceID: 11968}
     - Class: 114
-      Script: {instanceID: 12146}
+      Script: {instanceID: 12110}
     - Class: 114
-      Script: {instanceID: 12310}
+      Script: {instanceID: 12148}
     - Class: 114
-      Script: {instanceID: 12416}
+      Script: {instanceID: 12312}
     - Class: 114
-      Script: {instanceID: 12444}
+      Script: {instanceID: 12418}
     - Class: 114
-      Script: {instanceID: 12452}
+      Script: {instanceID: 12454}
     - Class: 114
-      Script: {instanceID: 12582}
+      Script: {instanceID: 12584}
     - Class: 114
-      Script: {instanceID: 12652}
+      Script: {instanceID: 12654}
     - Class: 114
-      Script: {instanceID: 12998}
+      Script: {instanceID: 13000}
     - Class: 114
-      Script: {instanceID: 13144}
+      Script: {instanceID: 13146}
     - Class: 114
-      Script: {instanceID: 13162}
+      Script: {instanceID: 13164}
     - Class: 114
-      Script: {instanceID: 13176}
+      Script: {instanceID: 13178}
     - Class: 114
-      Script: {instanceID: 13388}
+      Script: {instanceID: 13390}
     - Class: 114
-      Script: {instanceID: 13416}
+      Script: {instanceID: 13418}
     - Class: 114
-      Script: {instanceID: 13458}
+      Script: {instanceID: 13460}
     - Class: 114
-      Script: {instanceID: 13504}
+      Script: {instanceID: 13506}
     - Class: 114
-      Script: {instanceID: 13644}
+      Script: {instanceID: 13632}
     - Class: 114
-      Script: {instanceID: 13760}
+      Script: {instanceID: 13648}
     - Class: 114
-      Script: {instanceID: 13844}
+      Script: {instanceID: 13764}
     - Class: 114
-      Script: {instanceID: 13872}
+      Script: {instanceID: 13848}
     - Class: 114
-      Script: {instanceID: 13890}
+      Script: {instanceID: 13876}
     - Class: 114
-      Script: {instanceID: 13892}
+      Script: {instanceID: 13894}
     - Class: 114
-      Script: {instanceID: 13934}
+      Script: {instanceID: 13936}
     - Class: 114
-      Script: {instanceID: 13946}
+      Script: {instanceID: 13948}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -164,6 +164,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: 0ffaf073d4b1fa4e8036cf7ad52ddba7
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Toggle
   - hash:
       serializedVersion: 2
       Hash: a6e561615949734e9f12f9b61661f43e
@@ -406,7 +412,7 @@ ScriptsOnlyBuild:
     className: TMP_TextEventCheck
   - hash:
       serializedVersion: 2
-      Hash: 4748dfd73522491ba01d22e316eed8fc
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Preferences
@@ -742,6 +748,12 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
+      Hash: 51c8b2a72f13a5091af12955e7ca6a48
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Carousel
+  - hash:
+      serializedVersion: 2
       Hash: d791aa6007fa3640be1164ea75bb087d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -826,7 +838,7 @@ ScriptsOnlyBuild:
     className: TestRunCallbackListener
   - hash:
       serializedVersion: 2
-      Hash: 6e36f2736dc6f428c6ad0d9154da1ced
+      Hash: 61e40a0d1968cbfa6276e7923d6ac1e6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OptionSceneController
@@ -854,12 +866,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIFader
-  - hash:
-      serializedVersion: 2
-      Hash: 0ffaf073d4b1fa4e8036cf7ad52ddba7
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Toggle
   - hash:
       serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744

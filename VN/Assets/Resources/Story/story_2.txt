@@ -1,10 +1,5 @@
 narrator "The monkey is happy, and the world is safe."
 Raelin"asdasdasd" enter(Raelin) 
-f(Raelin)
-fl(Raelin)
-fr(Raelin)
-exit(Raelin)
-enter(Raelin) 
-setpos(Raelin,0.3,0.7)
-move(Raelin,1.0,0.5)
 
+exit(Raelin)
+narrator "The monkey is happy, and the world is safe."

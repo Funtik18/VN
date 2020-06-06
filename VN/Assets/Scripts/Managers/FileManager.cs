@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FileManager : MonoBehaviour {//print(Application.persistentDataPath);
 
-    private readonly static string SETTINGS_FILE = "/GAME/settings.json";
+    private readonly static string SETTINGS_FILE = "/settings.json";
     
     public static string fileExtension = ".txt";
 
