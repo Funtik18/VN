@@ -25,9 +25,23 @@ public class DialogueSystem : MonoBehaviour {
 	void Awake() {
 		_instance = this;
 
-		Close();
-	}
+		interpreter = Interpreter.GetInstance();
 
+		elements.speechButtons[0].onClick.AddListener(() => {
+			
+		});//back;
+		elements.speechButtons[1].onClick.AddListener(() => { });
+		elements.speechButtons[2].onClick.AddListener(() => { });
+		elements.speechButtons[3].onClick.AddListener(() => { });
+		elements.speechButtons[4].onClick.AddListener(() => { });
+		elements.speechButtons[5].onClick.AddListener(() => { });
+		elements.speechButtons[6].onClick.AddListener(() => { });
+		elements.speechButtons[7].onClick.AddListener(() => { });
+		elements.speechButtons[8].onClick.AddListener(() => { });
+
+		//Close();
+	}
+	Interpreter interpreter;
 
 	/// <summary>
 	/// Say something and show it on the speech box.
@@ -126,7 +140,6 @@ public class DialogueSystem : MonoBehaviour {
 		VisibilityRequirements(false);
 		VisibilitySpeech(false);
 	}
-
 	public void VisibilityButtons( bool trigger ) {
 		for (int i = 0; i < elements.speechButtons.Length; i++) {
 			elements.speechButtons[i].gameObject.SetActive(trigger);
@@ -137,13 +150,11 @@ public class DialogueSystem : MonoBehaviour {
 			elements.requirementsObjects[i].SetActive(trigger);
 		}
 	}
-
 	public void VisibilitySpeech( bool trigger ) {
 		speechBox.SetActive(trigger);
 		//speakerNamePanel.SetActive(trigger);
 		//speechPanel.SetActive(trigger);
 	}
-
 	public void Open( string speakerName = "", string speech = "" ) {
 
 		VisibilityRequirements(true);

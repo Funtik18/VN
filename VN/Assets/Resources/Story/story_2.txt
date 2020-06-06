@@ -1,5 +1,8 @@
-narrator "The monkey is happy, and the world is safe."
-Raelin"asdasdasd" enter(Raelin) 
-
-exit(Raelin)
-narrator "The monkey is happy, and the world is safe."
+narrator "1   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "2   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "3   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "4   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "5   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "6   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "7   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "8   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."

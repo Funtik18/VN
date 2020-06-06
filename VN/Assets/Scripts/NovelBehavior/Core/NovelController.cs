@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class NovelController : MonoBehaviour {
     public static NovelController _instance;
 
+	public Button button;
+
 	Interpreter interpreter;
 
 	string activeChapterFile = "";
@@ -20,16 +22,39 @@ public class NovelController : MonoBehaviour {
 
 	void Awake() {
 		_instance = this;
+
+		interpreter = Interpreter.GetInstance();
+
+		button.onClick.AddListener(() => { Command_Back(); });
 	}
-	
+
+	public void Command_Back() {
+
+		StartCoroutine(WaitingFile2());
+	}
+
+
+	public bool isWaitingFile2 { get { return waitingFile2 != null; } }
+	Coroutine waitingFile2 = null;
+	IEnumerator WaitingFile2() {
+		if (interpreter.isHandlingChapterFile && interpreter.chapterProgress>1) {
+			interpreter.fast = true;
+			yield return new WaitForSeconds(0.01f);//вынужденная мера
+			interpreter.ContinueReading(interpreter.chapterProgress-2);
+			Command_Next();
+		}
+		print("bad");
+		yield break;
+	}
+
+
+
 
 	public void LoadChapterFile( string _fileName ) {
 		activeChapterFile = _fileName;
 		data = FileManager.ReadTextAsset(FileManager.GetFileTXT(_fileName));
 
 		//cachedLastSpeaker = "";
-
-		interpreter = Interpreter.GetInstance();
 
 		interpreter.StartReading(data);
 
@@ -47,34 +72,34 @@ public class NovelController : MonoBehaviour {
 	public void Prepare() {
 		GameObject[] nexts = GameObject.FindGameObjectsWithTag("NEXT");
 		for (int i = 0; i < nexts.Length; i++) {
-			nexts[i].GetComponent<Button>().onClick.AddListener(() => { Command_Next();});
+			nexts[i].GetComponent<Button>().onClick.AddListener(() => { Command_Next(); interpreter.fast = false; });////////////////////
 		}
 	}
 
 	public bool isWaitingFile { get { return waitingFile != null; } }
 	Coroutine waitingFile = null;
 	IEnumerator WaitingFile() {
-		Debug.Log("Start - " + activeChapterFile);
+		//Debug.Log("Start - " + activeChapterFile);
 
 		//wait end file
 		while (interpreter.isHandlingChapterFile) yield return null;
 		yield return new WaitForSeconds(1f);
 
 		DialogueSystem._instance.Close();
-		Debug.Log("End - " + activeChapterFile);
-
-
-
+		//Debug.Log("End - " + activeChapterFile);
 	}
 
 	
 	#region Handle action
 	public void HandleAction( string action ) {
-		Debug.Log("execute command - " + action);
+		//Debug.Log("execute command - " + action);
 		string[] data = action.Split('(', ')');
 		switch (data[0].ToLower()) {
 			case "next":
 			Command_Next();
+			break;
+			case "back":
+			Command_Back();
 			break;
 
 			case "enter":
@@ -185,6 +210,7 @@ public class NovelController : MonoBehaviour {
 	public void Command_Next() {
 		interpreter.next = true;
 	}
+	
 
 	void Command_Enter( string data ) {
 		string[] parameters = data.Split(',');

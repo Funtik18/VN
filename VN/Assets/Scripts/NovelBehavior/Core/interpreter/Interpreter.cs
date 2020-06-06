@@ -8,8 +8,10 @@ public class Interpreter {
 
 	List<string> data = new List<string>();
 
-	int chapterProgress = 0;//read lines
-	int lineProgress = 0;
+	public int chapterProgress = 0;//read lines
+	public int lineProgress = 0;
+
+	public bool fast = false;
 
 	private Interpreter() {
 		_instance = this;
@@ -29,13 +31,21 @@ public class Interpreter {
 		data = _data;
 		if (handlingChapterFile != null)
 			NovelController._instance.StopCoroutine(handlingChapterFile);
+		chapterProgress = 0;
 		handlingChapterFile = NovelController._instance.StartCoroutine(HandlingChapterFile());
 	}
+	public void ContinueReading( int index) {
+		if (handlingChapterFile != null)
+			NovelController._instance.StopCoroutine(handlingChapterFile);
+		chapterProgress = index;
+		handlingChapterFile = NovelController._instance.StartCoroutine(HandlingChapterFile());
+	}
+
 	#region Handling chapter file
 	public bool isHandlingChapterFile { get { return handlingChapterFile != null; } }
-	Coroutine handlingChapterFile = null;
+	public Coroutine handlingChapterFile = null;
 	IEnumerator HandlingChapterFile() {
-		chapterProgress = 0;
+
 
 		while (chapterProgress < data.Count) {
 			if (next) {//click next
@@ -71,7 +81,7 @@ public class Interpreter {
 		handlingLine = NovelController._instance.StartCoroutine(HandlingLine(line));
 	}
 	public bool isHandlingLine { get { return handlingLine != null; } }
-	Coroutine handlingLine = null;
+	public Coroutine handlingLine = null;
 	IEnumerator HandlingLine( LineArchitect.LINE line ) {
 		next = false;
 		lineProgress = 0;
@@ -98,11 +108,14 @@ public class Interpreter {
 
 			while (segment.isRunning) {
 				yield return new WaitForEndOfFrame();
-				if (next) {
+				if (next || fast) {////////////////////////////////////////
 					if (!segment.architect.skip)//rapidly complete the text on first advance, force it to finish on the second.
 						segment.architect.skip = true;
-					else
+					else {
+
 						segment.ForceFinish();
+						//yield break;
+					}
 					next = false;
 				}
 			}
