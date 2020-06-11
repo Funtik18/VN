@@ -31,7 +31,6 @@ public class TextArchitect {
 		Initiate();
 	}
 
-
 	public void ShowText( string text ) {
 		if (isConstructing)
 			DialogueSystem._instance.StopCoroutine(buildProcess);
@@ -63,38 +62,50 @@ public class TextArchitect {
 		tmpro.text = "";
 		tmpro.text += preText;
 
+
 		tmpro.ForceMeshUpdate(false);
 		TMP_TextInfo inf = tmpro.textInfo;
 		int vis = inf.characterCount;
 
 		tmpro.text += targetText;
 
+
 		tmpro.ForceMeshUpdate(false);
 		inf = tmpro.textInfo;
 		int max = inf.characterCount;
+		
 
 		tmpro.maxVisibleCharacters = vis;
+		//
+
 
 		//temporary cache of cpf per construction sequence.
 		int cpf = charactersPerFrame;
 
 		while (vis < max) {
-			//allow skipping by increasing the characters per frame and the speed of occurance.
-			if (skip) {
-				speed = 1;
-				cpf = charactersPerFrame < 5 ? 5 : charactersPerFrame + 3;
-			}
 
-			//reveal a certain number of characters per frame.
-			while (runsThisFrame < cpf) {
-				vis++;
-				tmpro.maxVisibleCharacters = vis;
-				runsThisFrame++;
-			}
+			Debug.Log(vis + " " + max);
+			if (!Interpreter.GetInstance().interrupt) {
 
-			//wait for the next available revelation time.
-			runsThisFrame = 0;
-			yield return new WaitForSeconds(0.01f * speed);
+				//allow skipping by increasing the characters per frame and the speed of occurance.
+				if (skip) {
+					speed = 1;
+					cpf = charactersPerFrame < 5 ? 5 : charactersPerFrame + 3;
+				}
+
+				//reveal a certain number of characters per frame.
+				while (runsThisFrame < cpf) {
+					vis++;
+					tmpro.maxVisibleCharacters = vis;
+					runsThisFrame++;
+				}
+
+				//wait for the next available revelation time.
+				runsThisFrame = 0;
+				yield return new WaitForSeconds(0.01f * speed);
+			} else {
+		
+			}			
 		}
 
 		//terminate the architect and remove it from the active log of architects.

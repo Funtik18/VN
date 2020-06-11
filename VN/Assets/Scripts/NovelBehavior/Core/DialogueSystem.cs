@@ -22,26 +22,15 @@ public class DialogueSystem : MonoBehaviour {
 		get { return !speechBox.activeInHierarchy; }
 	}
 
+	public static float MAXCONST_SKIP_MAIN = 0.5f;//максимальная скорость скипа в секундах
+
+	public static float MAXCONST_SKIP_CHARACTER_FADE = 5f;//максимальная скорость при переходах во время скипа
+	public static float MAXCONST_SKIP_CHARACTER_MOVE = 0.1f;//максимальная скорость при движении во время скипа множится на Time.deltaTime ~ 30f
+
+
 	void Awake() {
 		_instance = this;
-
-		interpreter = Interpreter.GetInstance();
-
-		elements.speechButtons[0].onClick.AddListener(() => {
-			
-		});//back;
-		elements.speechButtons[1].onClick.AddListener(() => { });
-		elements.speechButtons[2].onClick.AddListener(() => { });
-		elements.speechButtons[3].onClick.AddListener(() => { });
-		elements.speechButtons[4].onClick.AddListener(() => { });
-		elements.speechButtons[5].onClick.AddListener(() => { });
-		elements.speechButtons[6].onClick.AddListener(() => { });
-		elements.speechButtons[7].onClick.AddListener(() => { });
-		elements.speechButtons[8].onClick.AddListener(() => { });
-
-		//Close();
 	}
-	Interpreter interpreter;
 
 	/// <summary>
 	/// Say something and show it on the speech box.
@@ -62,6 +51,7 @@ public class DialogueSystem : MonoBehaviour {
 
 		string additiveSpeech = additive ? speechText.text : "";
 		targetSpeech = additiveSpeech + speech;
+		
 
 		//create a new architect the very first time. Any time other than that and we renew the architect.
 		if (textArchitect == null)
@@ -87,9 +77,6 @@ public class DialogueSystem : MonoBehaviour {
 		}
 
 		while (textArchitect.isConstructing) {
-			if (Input.GetKey(KeyCode.Space))//////////////////
-				textArchitect.skip = true;
-
 			yield return new WaitForEndOfFrame();
 		}
 
@@ -134,12 +121,7 @@ public class DialogueSystem : MonoBehaviour {
 	/// <summary>
 	/// Close the entire speech panel. Stop all dialogue.
 	/// </summary>
-	public void Close() {
-		StopSpeaking();
-
-		VisibilityRequirements(false);
-		VisibilitySpeech(false);
-	}
+	
 	public void VisibilityButtons( bool trigger ) {
 		for (int i = 0; i < elements.speechButtons.Length; i++) {
 			elements.speechButtons[i].gameObject.SetActive(trigger);
@@ -158,7 +140,7 @@ public class DialogueSystem : MonoBehaviour {
 	public void Open( string speakerName = "", string speech = "" ) {
 
 		VisibilityRequirements(true);
-		VisibilityButtons(true);
+		//VisibilityButtons(true);
 		VisibilitySpeech(true);
 		/*if (speakerName == "" && speech == "") {
 			VisibilitySpeech(false);
@@ -174,7 +156,15 @@ public class DialogueSystem : MonoBehaviour {
 
 		speechText.text = speech;*/
 	}
+	public void Interruption() {
 
+	}
+	public void Close() {
+		StopSpeaking();
+
+		VisibilityRequirements(false);
+		VisibilitySpeech(false);
+	}
 
 	[System.Serializable]
 	public class ELEMENTS {
@@ -184,7 +174,7 @@ public class DialogueSystem : MonoBehaviour {
 		public GameObject speechPanel;
 		public TextMeshProUGUI speechText;
 
-		public Button[] speechButtons;
+		public GameObject[] speechButtons;
 
 		public GameObject[] requirementsObjects;
 	}

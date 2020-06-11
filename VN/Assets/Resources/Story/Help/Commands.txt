@@ -2,7 +2,7 @@ Commands for Visual Novel.
 
 #DIALOGUE COMMANDS (DONE)
 #Make a character speak
-  characterName "dialogue"					ex:Raelin "Hi, how are you?"
+  characterName "dialogue"					            ex:Raelin "Hi, how are you?"
   No name before dialogue means use last speaker.		ex:"That's good to hear."
 
 #USING DIALOGUE COMMAND TAGS (DONE)

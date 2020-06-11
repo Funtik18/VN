@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LineArchitect {
+
+	public static char actionSplitter = ' ';
+
 	public static LINE Interpret( string rawLine ) {
 		return new LINE(rawLine);
 	}
@@ -26,7 +29,6 @@ public class LineArchitect {
 
 		public LINE( string rawLine ) {
 			string[] dialogueAndActions = rawLine.Split('"');
-			char actionSplitter = ' ';
 			string[] actionsArr = dialogueAndActions.Length == 3 ? dialogueAndActions[2].Split(actionSplitter) : dialogueAndActions[0].Split(actionSplitter);
 
 			if (dialogueAndActions.Length == 3) {//contains dialogue
@@ -47,7 +49,7 @@ public class LineArchitect {
 				string fetchedSpeakerName = "";
 				//if (CharacterDialogueDetails.instance.characterNicknameDictionary.TryGetValue(speaker, out fetchedSpeakerName))
 				//speaker = fetchedSpeakerName;
-
+				/////////////////////////////////////
 				//self is a shortcut for the actual name of the character.
 				if (speakerDisplayName == "self")//only called when a character is speaked as someone else. but it must come after the nickname lookup.
 					speakerDisplayName = speaker;
@@ -57,11 +59,9 @@ public class LineArchitect {
 				SegmentDialogue(dialogueAndActions[1]);
 			}
 
-			
 			for (int i = 0; i < actionsArr.Length; i++) {//handle actions.
 				actions.Add(actionsArr[i]);
 			}
-
 			//the line is now segmented, the actions are loaded, and it is ready to be used.
 		}
 
@@ -152,7 +152,7 @@ public class LineArchitect {
 					}
 
 					string targDialogue = parts[i];
-
+					//////////////////////////////////////
 					if (line.speaker != "narrator" && !line.speaker.Contains("*")) {
 						string s = line.speaker;
 

@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonEnablePlane : BasicButton {
-	public CanvasGroup mainPanel;
-	
+
 	void Awake() {
 		main = GetComponent<Button>();
-		main.onClick.AddListener(() => { HelpFunctions.EnableCanvasGroup(mainPanel, !mainPanel.blocksRaycasts); });
+		main.onClick.AddListener(() => { HandleAction.Command_PreferncesSetActive(); });
 	}
 
 	

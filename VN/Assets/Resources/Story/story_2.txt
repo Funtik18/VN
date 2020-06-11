@@ -1,8 +1,18 @@
-narrator "1   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "2   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "3   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "4   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "5   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "6   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "7   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
-narrator "8   The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+"" enter(Raelin;Gwynne) enter(Raelin;Gwynne,0.1,true)
+narrator "1  The <b>monkey</b> is happy,[enter(Raelin;Gwynne)] {a}and the world is safe.[enter(Raelin;Gwynne,0.1,true)]{wa 1}The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+narrator "2  The <b>monkey</b> is happy, [setpos(Raelin,l) setpos(Gwynne,r)]and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe." 
+narrator "3  The <b>monkey</b> is happy, [move(Raelin;Gwynne,0.5,0.5,30,true)]and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+
+
+
+
+move(Raelin;Gwynne,l)
+
+exit(Raelin;Gwynne,1,true)
+exit(Raelin;Gwynne)
+
+narrator "2  The <b>monkey</b> is happy, [setpos(Raelin,l) setpos(Gwynne,r)]and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe." 
+narrator "3  The <b>monkey</b> is happy, [move(Raelin;Gwynne,0.5,0.5,30,true)]and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and tThe <b>monkey</b> is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe.The monkey is happy, and the world is safe."
+
+
+close

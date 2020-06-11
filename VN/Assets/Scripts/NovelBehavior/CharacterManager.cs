@@ -43,6 +43,7 @@ public class CharacterManager : MonoBehaviour {
 		}
 		return null;
 	}
+	
 
 	/// <summary>
 	/// Creates the character.
@@ -80,14 +81,74 @@ public class CharacterManager : MonoBehaviour {
 			DestroyCharacter(character);
 		}
 	}
+	public void DestroyCharacters() {
+		while (characters.Count > 0) {
+			DestroyCharacter(characters[0]);
+		}
+	}
 
 
 	public class CHARACTERPOSITIONS {
-		public Vector2 bottomLeft = new Vector2(0, 0);
-		public Vector2 topRight = new Vector2(1f, 1f);
-		public Vector2 center = new Vector2(0.5f, 0.5f);
-		public Vector2 bottomRight = new Vector2(1f, 0);
+
+		public Vector2 left = new Vector2(0f, 0.5f);
 		public Vector2 topLeft = new Vector2(0, 1f);
+		public Vector2 bottomLeft = new Vector2(0, 0);
+
+		public Vector2 top = new Vector2(0.5f, 1f);
+		public Vector2 center = new Vector2(0.5f, 0.5f);
+		public Vector2 bottom = new Vector2(0.5f, 0);
+
+		public Vector2 topRight = new Vector2(1f, 1f);
+		public Vector2 bottomRight = new Vector2(1f, 0);
+		public Vector2 right = new Vector2(1, 0.5f);
 	}
 	public static CHARACTERPOSITIONS characterPositions = new CHARACTERPOSITIONS();
+
+	public static Vector2 GetPositionByString(string name) {
+		Vector2 pos = Vector2.zero;
+		switch (name) {
+			case "l": {
+				pos = characterPositions.left;
+			}
+			break;
+			case "lt": {
+				pos = characterPositions.topLeft;
+			}
+			break;
+			case "lb": {
+				pos = characterPositions.bottomLeft;
+			}
+			break;
+			case "c": {
+				pos = characterPositions.center;
+			}
+			break;
+			case "ct": {
+				pos = characterPositions.top;
+			}
+			break;
+			case "cb": {
+				pos = characterPositions.bottom;
+			}
+			break;
+
+			case "r": {
+				pos = characterPositions.right;
+			}
+			break;
+			case "rt": {
+				pos = characterPositions.topRight;
+			}
+			break;
+			case "rb": {
+				pos = characterPositions.bottomRight;
+			}
+			break;
+			default: {
+				pos = new Vector2(-1,-1);
+			}
+			break;
+		}
+		return pos;
+	}
 }

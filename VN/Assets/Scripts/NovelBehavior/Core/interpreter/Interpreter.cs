@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,17 +7,17 @@ public class Interpreter {
 
 	private static Interpreter _instance;
 
+	private InputManager inputs;
+
 	List<string> data = new List<string>();
 
 	public int chapterProgress = 0;//read lines
-	public int lineProgress = 0;
-
-	public bool fast = false;
+	public int lineProgress = 0;//read segmets
 
 	private Interpreter() {
 		_instance = this;
+		inputs = InputManager.GetInstance();
 	}
-
 	public static Interpreter GetInstance() {
 		if (_instance == null) return new Interpreter();
 		return _instance;
@@ -26,27 +27,38 @@ public class Interpreter {
 	/// Trigger that advances the progress through a chapter file.
 	/// </summary>
 	public bool next = false;
+	public void Next() {
+		next = true;
+	}
 
+	public bool interrupt = false; 
+	public void Interrupt() {
+		interrupt = true;
+	}
+	public void Continue() {
+		interrupt = false;
+	}
+
+
+	#region Handling chapter file
 	public void StartReading( List<string> _data ) {
 		data = _data;
-		if (handlingChapterFile != null)
-			NovelController._instance.StopCoroutine(handlingChapterFile);
+		StopHandlingChapterFile();
 		chapterProgress = 0;
 		handlingChapterFile = NovelController._instance.StartCoroutine(HandlingChapterFile());
 	}
-	public void ContinueReading( int index) {
-		if (handlingChapterFile != null)
-			NovelController._instance.StopCoroutine(handlingChapterFile);
+	public void ContinueReadingFrom( int index ) {
+		StopHandlingChapterFile();
+
+		HandleAction.Command_OutAllCharacters();
+
 		chapterProgress = index;
 		handlingChapterFile = NovelController._instance.StartCoroutine(HandlingChapterFile());
 	}
 
-	#region Handling chapter file
 	public bool isHandlingChapterFile { get { return handlingChapterFile != null; } }
 	public Coroutine handlingChapterFile = null;
 	IEnumerator HandlingChapterFile() {
-
-
 		while (chapterProgress < data.Count) {
 			if (next) {//click next
 				string line = data[chapterProgress];
@@ -70,6 +82,11 @@ public class Interpreter {
 			yield return new WaitForEndOfFrame();
 		}
 
+		handlingChapterFile = null;
+	}
+	private void StopHandlingChapterFile() {
+		if (handlingChapterFile != null)
+			NovelController._instance.StopCoroutine(handlingChapterFile);
 		handlingChapterFile = null;
 	}
 	#region Handling line
@@ -106,26 +123,29 @@ public class Interpreter {
 
 			segment.Run();//the segment now needs to build and run.
 
+			//много кликов, skip segment
 			while (segment.isRunning) {
+				
 				yield return new WaitForEndOfFrame();
-				if (next || fast) {////////////////////////////////////////
+				//Skip segment по клику
+				if (next) {
 					if (!segment.architect.skip)//rapidly complete the text on first advance, force it to finish on the second.
 						segment.architect.skip = true;
-					else {
-
+					else
 						segment.ForceFinish();
-						//yield break;
-					}
 					next = false;
 				}
 			}
+
+			
+
 			lineProgress++;
 			yield return new WaitForEndOfFrame();
 		}
 
 
 		for (int i = 0; i < line.actions.Count; i++) {//Handle all the actions set at the end of the line.
-			NovelController._instance.HandleAction(line.actions[i]);
+			NovelController._instance.ReadAction(line.actions[i]);
 		}
 
 		handlingLine = null;
@@ -185,5 +205,61 @@ public class Interpreter {
 		}
 	}
 	#endregion
+	#endregion
+
+	#region Skip
+	public void StartSkiping() {
+		if(skip != null)
+			StopSkiping();
+		skip = NovelController._instance.StartCoroutine(Skip());
+	}
+
+	public bool iskip { get { return skip != null; } }
+	Coroutine skip = null;
+	IEnumerator Skip() {
+		while (isHandlingChapterFile) {
+			Next();
+			yield return new WaitForSeconds(DialogueSystem.MAXCONST_SKIP_MAIN);
+		}
+		yield break;
+	}
+	public void StopSkiping() {
+		if (skip != null)
+			NovelController._instance.StopCoroutine(skip);
+		skip = null;
+	}
+	#endregion
+
+	#region Back
+	/*public void Back() {
+		NovelController._instance.StartCoroutine(RollBack());
+	}
+	public bool isRollBack { get { return rollBack != null; } }
+	Coroutine rollBack = null;
+	IEnumerator RollBack() {
+		if (isHandlingChapterFile && chapterProgress > 1) {
+			try {
+				List<Character> characters = CharacterManager._instance.characters;
+				for (int i = 0; i < characters.Count; i++) {
+					if (characters[i].isEnteringOrExitingScene) {
+						characters[i].ForceFinishEnterinExiting();//лечит MissingReferenceException
+					}
+				}
+
+
+				
+				ContinueReadingFrom(chapterProgress - 2);
+				NextForce();
+			} catch (Exception e) {
+				Debug.LogError(e.Message);
+			}
+
+			/*ForceFinishRead = true;
+			//ниже 0.004f не ставить
+			yield return new WaitForSeconds(0.01f);//вынужденная мера 
+			
+		}
+		yield break;
+	}*/
 	#endregion
 }

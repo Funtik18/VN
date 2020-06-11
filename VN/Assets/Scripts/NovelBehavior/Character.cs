@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class Character {
 	}
 	public bool isInScene = false;
 
-	[HideInInspector] public RectTransform root;
+	public RectTransform root;
 
 	DialogueSystem dialogue;
 
@@ -84,6 +85,7 @@ public class Character {
 		dialogue.Say(speech, displayName, add/*, c*/);
 	}
 
+
 	#region Moving
 	/// <summary>
 	/// Immediately set the position of this character to the intended target.
@@ -110,7 +112,7 @@ public class Character {
 	/// <param name="speed">Speed.</param>
 	/// <param name="smooth">If set to <c>true</c> smooth.</param>
 	public void MoveTo( Vector2 Target, float speed, bool smooth = true ) {
-		Debug.Log("move " + characterName + " to " + Target.ToString());
+		//Debug.Log("move " + characterName + " to " + Target.ToString());
 		StopMoving();
 		//start moving coroutine.
 		moving = CharacterManager._instance.StartCoroutine(Moving(Target, speed, smooth));
@@ -139,6 +141,10 @@ public class Character {
 
 		//move until we reach the target position.
 		while (root.anchorMin != minAnchorTarget) {
+			if (IsSkip()) {
+				speed = speed < DialogueSystem.MAXCONST_SKIP_CHARACTER_MOVE ? DialogueSystem.MAXCONST_SKIP_CHARACTER_MOVE : speed;
+			}
+
 			root.anchorMin = ( !smooth ) ? Vector2.MoveTowards(root.anchorMin, minAnchorTarget, speed) : Vector2.Lerp(root.anchorMin, minAnchorTarget, speed);
 			root.anchorMax = root.anchorMin + padding;
 			yield return new WaitForEndOfFrame();
@@ -231,47 +237,63 @@ public class Character {
 	}
 	#endregion
 	#region Transition fade
-	public void FadeOut( float speed = 3, bool smooth = false ) {
+	public void FadeOut( float speed, bool smooth = false ) {
 		if (isEnteringOrExitingScene)
 			CharacterManager._instance.StopCoroutine(enteringExiting);
 
+		isInScene = false;
 		enteringExiting = CharacterManager._instance.StartCoroutine(ExitingScene(speed, smooth));
 	}
-	Coroutine enteringExiting = null;
-	public bool isEnteringOrExitingScene { get { return enteringExiting != null; } }
+	public void FadeIn( float speed, bool smooth = false ) {
+		if (isEnteringOrExitingScene)
+			CharacterManager._instance.StopCoroutine(enteringExiting);
 
-	IEnumerator EnteringScene( float speed = 3, bool smooth = false ) {
 		isInScene = true;
+		if (!enabled) enabled = true;
+		enteringExiting = CharacterManager._instance.StartCoroutine(EnteringScene(speed, smooth));
+	}
+	public void FadeOut() {
+		isInScene = false;
+		canvasGroup.alpha = 0;
+	}
+	public void FadeIn() {
+		isInScene = true;
+		canvasGroup.alpha = 1;
+	}
 
+	public bool isEnteringOrExitingScene { get { return enteringExiting != null; } }
+	Coroutine enteringExiting = null;
+	IEnumerator ExitingScene( float speed = 3, bool smooth = false ) {
+		while (canvasGroup.alpha > 0) {
+			if (IsSkip()) {
+				speed = speed < DialogueSystem.MAXCONST_SKIP_CHARACTER_FADE ? DialogueSystem.MAXCONST_SKIP_CHARACTER_FADE : speed;
+			}
+			canvasGroup.alpha = smooth ? Mathf.Lerp(canvasGroup.alpha, 0, speed * Time.deltaTime) : Mathf.MoveTowards(canvasGroup.alpha, 0, speed * Time.deltaTime);
+			yield return new WaitForEndOfFrame();
+		}
+
+		enteringExiting = null;
+	}
+	IEnumerator EnteringScene( float speed = 3, bool smooth = false ) {
 		while (canvasGroup.alpha < 1) {
+			if (IsSkip()) {
+				speed = speed < DialogueSystem.MAXCONST_SKIP_CHARACTER_FADE ? DialogueSystem.MAXCONST_SKIP_CHARACTER_FADE : speed;
+			}
 			canvasGroup.alpha = smooth ? Mathf.Lerp(canvasGroup.alpha, 1, speed * Time.deltaTime) : Mathf.MoveTowards(canvasGroup.alpha, 1, speed * Time.deltaTime);
 			yield return new WaitForEndOfFrame();
 		}
 
 		enteringExiting = null;
 	}
-
-	IEnumerator ExitingScene( float speed = 3, bool smooth = false ) {
-		isInScene = false;
-
-		while (canvasGroup.alpha > 0) {
-			canvasGroup.alpha = smooth ? Mathf.Lerp(canvasGroup.alpha, 0, speed * Time.deltaTime) : Mathf.MoveTowards(canvasGroup.alpha, 0, speed * Time.deltaTime);
-			yield return new WaitForEndOfFrame();
-		}
-
+	public void ForceFinishEnterinExiting() {
+		if (enteringExiting != null)
+			CharacterManager._instance.StopCoroutine(enteringExiting);
 		enteringExiting = null;
 
-		//character is completely faded out and exited the scene. Destroy it so it is no longer saved to file until recalled.
-		CharacterManager._instance.DestroyCharacter(this);
-	}
+		if (isInScene) FadeIn();
+		else FadeOut();
+	}//delete
 
-	Sprite lastBodySprite, lastFacialSprite = null;
-	public void FadeIn( float speed = 3, bool smooth = false ) {
-		if (isEnteringOrExitingScene)
-			CharacterManager._instance.StopCoroutine(enteringExiting);
-
-		enteringExiting = CharacterManager._instance.StartCoroutine(EnteringScene(speed, smooth));
-	}
 	#endregion
 	#region Transition flip
 	public bool isFacingLeft { get { return root.localScale.x == 1; } }
@@ -311,7 +333,7 @@ public class Character {
 	/// <param name="spriteName"></param>
 	public void SetBody( string spriteName ) {
 		if (spriteName == "AlphaOnly")
-			SetBody(Resources.Load<Sprite>("Images/AlphaOnly"));
+			SetBody(Resources.Load<Sprite>("Images/Textures/AlphaOnly"));
 		else
 			renderers.bodyRenderer.sprite = GetSprite(spriteName);
 	}
@@ -329,7 +351,7 @@ public class Character {
 	/// <param name="spriteName"></param>
 	public void SetExpression( string spriteName ) {
 		if (spriteName == "AlphaOnly")
-			SetExpression(Resources.Load<Sprite>("Images/AlphaOnly"));
+			SetExpression(Resources.Load<Sprite>("Images/Textures/AlphaOnly"));
 		else
 			renderers.expressionRenderer.sprite = GetSprite(spriteName);
 	}
@@ -337,6 +359,14 @@ public class Character {
 
 
 	#endregion
+
+	private bool IsSkip() {
+		if (dialogue.currentArchitect.skip && dialogue.isSpeaking) {
+			return true;
+		}
+		return false;
+	}
+
 
 	[System.Serializable]
 	public class Renderers {

@@ -8,6 +8,8 @@ ScriptsOnlyBuild:
     - ChoiceButton
     - ChoiceScreen
     - DialogueSystem
+    - FlexibleGridLayout
+    - InputManager
     - LayoutOrders
     - NovelController
     - OptionSceneController
@@ -40,8 +42,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Mask
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Toggle
-    - UnityEngine.UI.ToggleGroup
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
@@ -74,63 +76,67 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11728}
     - Class: 114
-      Script: {instanceID: 11750}
+      Script: {instanceID: 11730}
     - Class: 114
-      Script: {instanceID: 11758}
+      Script: {instanceID: 11752}
     - Class: 114
-      Script: {instanceID: 11800}
+      Script: {instanceID: 11760}
     - Class: 114
-      Script: {instanceID: 11842}
+      Script: {instanceID: 11806}
     - Class: 114
-      Script: {instanceID: 11936}
+      Script: {instanceID: 11848}
     - Class: 114
-      Script: {instanceID: 11968}
+      Script: {instanceID: 11946}
     - Class: 114
-      Script: {instanceID: 12110}
+      Script: {instanceID: 11978}
     - Class: 114
-      Script: {instanceID: 12148}
+      Script: {instanceID: 12122}
     - Class: 114
-      Script: {instanceID: 12312}
+      Script: {instanceID: 12160}
     - Class: 114
-      Script: {instanceID: 12418}
+      Script: {instanceID: 12328}
+    - Class: 114
+      Script: {instanceID: 12440}
     - Class: 114
       Script: {instanceID: 12454}
     - Class: 114
-      Script: {instanceID: 12584}
+      Script: {instanceID: 12476}
     - Class: 114
-      Script: {instanceID: 12654}
+      Script: {instanceID: 12612}
     - Class: 114
-      Script: {instanceID: 13000}
+      Script: {instanceID: 12682}
     - Class: 114
-      Script: {instanceID: 13146}
+      Script: {instanceID: 13038}
     - Class: 114
-      Script: {instanceID: 13164}
+      Script: {instanceID: 13188}
     - Class: 114
-      Script: {instanceID: 13178}
+      Script: {instanceID: 13206}
     - Class: 114
-      Script: {instanceID: 13390}
+      Script: {instanceID: 13220}
     - Class: 114
-      Script: {instanceID: 13418}
+      Script: {instanceID: 13444}
     - Class: 114
-      Script: {instanceID: 13460}
+      Script: {instanceID: 13472}
     - Class: 114
-      Script: {instanceID: 13506}
+      Script: {instanceID: 13514}
     - Class: 114
-      Script: {instanceID: 13632}
+      Script: {instanceID: 13560}
     - Class: 114
-      Script: {instanceID: 13648}
+      Script: {instanceID: 13668}
     - Class: 114
-      Script: {instanceID: 13764}
+      Script: {instanceID: 13696}
     - Class: 114
-      Script: {instanceID: 13848}
+      Script: {instanceID: 13714}
     - Class: 114
-      Script: {instanceID: 13876}
+      Script: {instanceID: 13830}
     - Class: 114
-      Script: {instanceID: 13894}
+      Script: {instanceID: 13914}
     - Class: 114
-      Script: {instanceID: 13936}
+      Script: {instanceID: 13942}
     - Class: 114
-      Script: {instanceID: 13948}
+      Script: {instanceID: 13960}
+    - Class: 114
+      Script: {instanceID: 14018}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -154,16 +160,22 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
+      Hash: f087c23fbfa15475a0d110af46fb0496
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Button
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: f087c23fbfa15475a0d110af46fb0496
+      Hash: 0c05f2bfb402def3f0a85a62a2323c7f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
-    className: Button
+    className: Slider
   - hash:
       serializedVersion: 2
       Hash: 0ffaf073d4b1fa4e8036cf7ad52ddba7
@@ -406,16 +418,16 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 938f5ed6335dae10d328fc61766eb1ad
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FlexibleGridLayout
+  - hash:
+      serializedVersion: 2
       Hash: dd7520b7d4e690e8c593273e7b9fbe80
     assemblyName: Assembly-CSharp-firstpass.dll
     namespaceName: TMPro.Examples
     className: TMP_TextEventCheck
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Preferences
   - hash:
       serializedVersion: 2
       Hash: 5cc439bf63c0539d39588e69465ac2ab
@@ -604,7 +616,7 @@ ScriptsOnlyBuild:
     className: ShaderPropAnimator
   - hash:
       serializedVersion: 2
-      Hash: 923992babde54fd3de651e94a2661397
+      Hash: 6ee2ad15d8106d4d5cd591c7c8e85841
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NovelController
@@ -742,6 +754,12 @@ ScriptsOnlyBuild:
     className: VertexZoom
   - hash:
       serializedVersion: 2
+      Hash: 82f70ce2994bd54e39852dec195a18b4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InputManager
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -838,7 +856,7 @@ ScriptsOnlyBuild:
     className: TestRunCallbackListener
   - hash:
       serializedVersion: 2
-      Hash: 61e40a0d1968cbfa6276e7923d6ac1e6
+      Hash: 3a8c0f5722570c50c24503a8d20d5f19
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OptionSceneController
@@ -874,10 +892,16 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: 0c05f2bfb402def3f0a85a62a2323c7f
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Slider
+      Hash: f521b0b62d9dd87abbce4339079a45c3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CoverSystem
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HandleAction
   - hash:
       serializedVersion: 2
       Hash: 0fd6822f6177297bd0eb4d83cc7a9030
@@ -886,7 +910,7 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
-      Hash: f0c8e4720072256607104640c5e65dbc
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ButtonEnablePlane

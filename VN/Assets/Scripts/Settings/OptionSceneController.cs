@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class OptionSceneController : MonoBehaviour {
 
+	public static OptionSceneController _instace;
+
 	//public TMP_Dropdown quality;//delete
 	public Carousel carousel;
 
@@ -16,10 +18,14 @@ public class OptionSceneController : MonoBehaviour {
 	public Button btnComfirm;
 	public Button btnReject;
 
+	public Button btnClose;
+
 	List<Resolution> filteredResolutions = new List<Resolution>();
 	int currentIndex = -1;
 
 	private void Awake() {
+		_instace = this;
+
 		fullscreen.onValueChanged.AddListener(delegate { FullScreen(); });
 
 		btnComfirm.onClick.AddListener(() => { ApplySettings(); });
